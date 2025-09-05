@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login – TENJIKU Database</title>
+  <style>
+    body{margin:0;display:grid;place-items:center;height:100vh;
+      background:#f5f7fb;font-family:ui-sans-serif,system-ui,Arial}
+    .card{background:#fff;padding:28px;border-radius:20px;
+      box-shadow:0 10px 30px rgba(15,23,42,.08);width:100%;max-width:380px}
+    h1{margin:0 0 16px;font-size:22px;text-align:center}
+    .input{width:100%;padding:14px;border:1.5px solid #e5e7eb;
+      border-radius:12px;font-size:16px;outline:none}
+    .input:focus{border-color:#3b82f6;box-shadow:0 0 0 4px #dbeafe}
+    .btn{margin-top:14px;width:100%;padding:14px;border:none;border-radius:12px;
+      background:#3b82f6;color:#fff;font-weight:600;border-radius:12px;cursor:pointer}
+    .btn:hover{background:#2563eb}
+    .error{color:#ef4444;font-size:14px;margin-top:8px;text-align:center}
+    .muted{margin-top:12px;font-size:14px;text-align:center}
+    .muted a{color:#2563eb;font-weight:600;text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>TENJIKU Login</h1>
+    <input id="pwd" class="input" type="password" placeholder="Enter password"/>
+    <button id="login-btn" class="btn">🔐 Login</button>
+    <div id="err" class="error"></div>
+    <div class="muted">
+      <a href="https://wa.me/628811585303" target="_blank">Contact Support</a>
+    </div>
+  </div>
+
+  <script>
+    const PASSWORD = "tenjiku";
+    const btn = document.getElementById("login-btn");
+    const pwd = document.getElementById("pwd");
+    const err = document.getElementById("err");
+
+    function login(){
+      if(pwd.value.trim() === PASSWORD){
+        sessionStorage.setItem("tenjiku_auth","ok");
+        window.location.href = "panel.html"; // redirect ke halaman utama
+      } else {
+        err.textContent = "Password salah!";
+      }
+    }
+
+    btn.onclick = login;
+    pwd.addEventListener("keydown",(e)=>{ if(e.key==="Enter") login(); });
+
+    // auto redirect kalau sudah login
+    if(sessionStorage.getItem("tenjiku_auth")==="ok"){
+      window.location.href = "panel.html";
+    }
+  </script>
+</body>
+</html>
